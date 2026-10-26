@@ -1,0 +1,6 @@
+{
+  "name": "homemart4u - Daily Groceries & Fresh Meat | Srinivaspur Road, Mulbagal",
+  "description": "Order 100% farm fresh chicken & daily groceries online from homemart4u in Mulbagal. Free delivery for first 3km, ~20-minute delivery from Srinivaspur Road, custom curry/biryani cuts, dynamic UPI QR payments, and COD available.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

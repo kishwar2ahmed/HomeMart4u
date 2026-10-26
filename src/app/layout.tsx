@@ -1,0 +1,102 @@
+import type { Metadata } from "next";
+import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
+import { CartProvider } from "@/context/CartContext";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { PwaRegister } from "@/components/pwa/PwaRegister";
+import { InstallPromptBanner } from "@/components/pwa/InstallPromptBanner";
+
+export const metadata: Metadata = {
+  title: "homemart4u - Daily Groceries & Fresh Meat | Srinivaspur Road, Mulbagal",
+  description:
+    "Order 100% farm fresh chicken & daily groceries online from homemart4u in Mulbagal. Free delivery for first 3km, ~20-minute delivery from Srinivaspur Road, custom curry/biryani cuts, dynamic UPI QR payments, and COD available.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "homemart4u",
+  },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
+  keywords: [
+    "homemart4u",
+    "homemart4u Mulbagal",
+    "Fresh Chicken Mulbagal",
+    "Groceries Mulbagal",
+    "Srinivaspur Road Mulbagal",
+    "Fresh Meat Mulbagal",
+    "Buy Chicken Online Mulbagal",
+    "Farm Fresh Chicken Karnataka",
+    "Curry Cut Chicken Mulbagal",
+  ],
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
+  openGraph: {
+    title: "homemart4u | Groceries & Fresh Meat Mulbagal",
+    description: "Premium fresh chicken and daily groceries delivered to your doorstep in Mulbagal from Srinivaspur Road in ~20 minutes.",
+    type: "website",
+    locale: "en_IN",
+    siteName: "homemart4u",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "GroceryStore",
+    name: "homemart4u",
+    description:
+      "Daily fresh tender chicken, customizable halal cuts, farm eggs, and essential groceries with express delivery in Mulbagal.",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Srinivaspur Road",
+      addressLocality: "Mulbagal",
+      addressRegion: "Karnataka",
+      postalCode: "563131",
+      addressCountry: "IN",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 13.1645,
+      longitude: 78.3952,
+    },
+    telephone: "+919035526638",
+    openingHours: "Mo-Su 08:30-19:00",
+    priceRange: "₹₹",
+  };
+
+  return (
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap"
+          rel="stylesheet"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </head>
+      <body className="min-h-screen flex flex-col bg-cream-50 text-charcoal-600 antialiased">
+        <AuthProvider>
+          <CartProvider>
+            <PwaRegister />
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <InstallPromptBanner />
+          </CartProvider>
+        </AuthProvider>
+      </body>
+    </html>
+  );
+}
